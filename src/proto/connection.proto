@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+message ConnectionRequest {
+    string address = 1;
+    int32 port = 2;
+}
+
+message ConnectionResponse {
+    string connection_id = 1;
+    bool success = 2;
+    string error_message = 3;
+}
+
+message DisconnectRequest {
+    string connection_id = 1;
+}
+
+message DisconnectResponse {
+    bool success = 1;
+    string error_message = 3;
+}
+
+service ConnectionService {
+    rpc connect (ConnectionRequest) returns (ConnectionResponse);
+    rpc disconnect (DisconnectRequest) returns (DisconnectResponse);
+}

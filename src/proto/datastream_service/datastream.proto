@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+message DataStreamRequest {
+    string type = 1; // type of message to receive. If ALL, includes all messages.
+    string conn_id = 2; // ID of the established connection (ConnectionHandler)
+}
+
+message DataStreamResponse {
+    string content = 1; // message content, TODO delete this
+    string src_system = 2;
+    string src_component = 3;
+    oneof payload {
+      HeartbeatPayload heartbeat = 10;
+      GlobalPositionIntPayload global_position_int = 11;
+      AttitudePayload attitude = 12;
+      BatteryStatusPayload battery_status = 13;
+  }
+}
+
+message HeartbeatPayload{
+  uint32 type = 1;
+  uint32 autopilot = 2;
+  uint32 base_mode = 3;
+  uint32 system_status = 4;
+  uint32 custom_mode = 5;
+  uint32 mavlink_version = 6;
+} 
+
+message GlobalPositionIntPayload {
+  uint32 type = 1;
+} 
+
+message AttitudePayload {
+  uint32 type = 1;
+} 
+
+message BatteryStatusPayload {
+  uint32 type = 1;
+} 
+
+service DataStreamService {
+    rpc receive (DataStreamRequest) returns (stream DataStreamResponse);
+}
