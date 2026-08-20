@@ -3,14 +3,14 @@ project(mavlink-driver)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Add this line to enable debug symbols
+# enable debug symbols
 set(CMAKE_BUILD_TYPE Debug)
 
-# Encontrar paquetes requeridos
+# find dependencies
 find_package(Protobuf REQUIRED)
 find_package(gRPC REQUIRED)
 
-# Archivos generados de protobuf
+# find generated proto files
 set(PROTO_SRCS
   "${CMAKE_CURRENT_SOURCE_DIR}/src/proto/connection.pb.cc"
   "${CMAKE_CURRENT_SOURCE_DIR}/src/proto/datastream_service/datastream.pb.cc"
@@ -28,7 +28,6 @@ set(GRPC_HDRS
   "${CMAKE_CURRENT_SOURCE_DIR}/src/proto/datastream_service/datastream.grpc.pb.h"
 )
 
-# Compilar el ejecutable
 add_executable(mavlink_driver
 src/connection_service.cpp
 src/connection_factory.cpp
@@ -40,13 +39,11 @@ src/main.cpp
   ${GRPC_SRCS}
 )
 
-# Incluir directorios
 target_include_directories(mavlink_driver PRIVATE
   ${CMAKE_CURRENT_SOURCE_DIR}/src/proto
   ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
-# Linkear librerías
 target_link_libraries(mavlink_driver
   protobuf::libprotobuf
   gRPC::grpc
