@@ -1,13 +1,22 @@
 #!/bin/bash
+# Author: miguelgargs
+# This file is the build script
+# that calls cmake and ninja to build
+# the project.
 
-# Script de build usando Clang y Ninja
 
-set -e # Salir si hay algún error
-
-echo "🔧 Configurando proyecto con CMake (usando Clang)..."
+echo "[i] Configuring cmake..."
 cmake --preset clang
+if [ $? -ne 0 ]
+then
+    echo "[X] Error setting cmake preset. Check your CMake installation."
+    exit 1
 
-echo "🔨 Compilando con Ninja..."
+echo "[i] Building..."
 ninja -C build
+if [ $? -ne 0 ]
+then
+    echo "[X] Error building project with ninja. Check your ninja installation or your project definition."
+    exit 1
 
-echo "✅ Build completado exitosamente!"
+echo "[✅] Project successfully built!"
