@@ -21,10 +21,10 @@ chmod +x ./build.sh
 ./build.sh
 ```
 
-Not needed, but documented here, generating the .proto files for `gRPC` and `protobuf`.
-```bash
-protoc --cpp_out=. --grpc_out=. --plugin=protoc-gen-grpc=$(which grpc_cpp_plugin) src/proto/connection.proto
-```
+There is no need anymore to compile the .proto files to .rs files, since `tonic` takes care of that automatically. 
+
+It only needs to link them when they are called in the `build.rs` build script.
+
 
 ## Running the project
 ```bash
