@@ -8,4 +8,4 @@ prost = "0.14.4"
 tonic = "0.14.6"
 
 [build-dependencies]
-tonic-build = "0.14.6"
+tonic-prost-build = "0.14.6"
