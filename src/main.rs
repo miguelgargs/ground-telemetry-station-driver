@@ -15,7 +15,11 @@ fn main() {
 
         println!("Received {read_bytes:?} bytes from TcpSocket!!"); // :? is for pretty-printing :)
         //println!("Buffer contents: {buf:?}");
-        is_mavlink(&buf);
+        if read_bytes.unwrap() == 0 {
+            continue; // skip this iteration if we did not get bytes
+        }
+        let is_mav = is_mavlink(&buf);
+        println!("Is MAVLink V2: {is_mav:?}");
     }
 }
 
@@ -23,5 +27,5 @@ fn is_mavlink(msg: &[u8]) -> bool {
     // read the header of the received message to check if it's a mavlink message
     let first_byte = msg[0];
     println!("The first byte in the msg is: {first_byte:x?}");
-    false
+    return first_byte == 0xFD;
 }
