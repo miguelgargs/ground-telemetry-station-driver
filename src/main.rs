@@ -19,5 +19,6 @@ fn main() {
         let read_bytes = stream.read(&mut buf);
 
         println!("Received {read_bytes:?} bytes from TcpSocket!!"); // :? is for pretty-printing :)
+        println!("Buffer contents: {buf:?}");
     }
 }
