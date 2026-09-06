@@ -1,6 +1,7 @@
 // mod checksum;
 
-use std::net::UdpSocket;
+use std::io::prelude::*;
+use std::net::TcpStream;
 
 fn main() {
     let _byte_string = b"123456789";
@@ -10,15 +11,13 @@ fn main() {
     // println!("0x{:04X}", crc);
     // i like the rust compiler, it behaves pretty good, errors are very informative as well
     println!("Starting the program...");
-    let socket = UdpSocket::bind("127.0.0.1:5760").expect("Could not create socket");
+    let mut stream = TcpStream::connect("127.0.0.1:5760").expect("Could not create socket");
     println!("Socket is open on 127.0.0.1:5760");
     let mut buf = [0; 560]; // buffer that fits two mavlink messages (max length is 280B)
     loop {
         println!("Waiting for data...");
-        let (num_bytes, src_addr) = socket
-            .recv_from(&mut buf)
-            .expect("It failed while receiving data!");
+        let read_bytes = stream.read(&mut buf);
 
-        println!("Received {num_bytes} from {src_addr}");
+        println!("Received {read_bytes:?} bytes from TcpSocket!!"); // :? is for pretty-printing :)
     }
 }
