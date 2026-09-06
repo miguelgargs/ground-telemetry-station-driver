@@ -13,6 +13,10 @@ pub fn crc_calculate(buffer: &[u8], length: u16) -> u16 {
     // initialize crc_tmp to empty
     crc_tmp = 0xffff;
 
-    println!("{}", crc_tmp);
+    // while length > 0 {
+    //     crc_accumulate(buffer++, &crc_tmp);
+    // }
+
+    // println!("{}", crc_tmp);
     crc_tmp
 }
