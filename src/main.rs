@@ -13,7 +13,7 @@ fn main() {
     println!("Starting the program...");
     let mut stream = TcpStream::connect("127.0.0.1:5760").expect("Could not create socket");
     println!("Socket is open on 127.0.0.1:5760");
-    let mut buf = [0; 560]; // buffer that fits two mavlink messages (max length is 280B)
+    let mut buf: [u8; 560] = [0; 560]; // buffer that fits two mavlink messages (max length is 280B)
     loop {
         println!("Waiting for data...");
         let read_bytes = stream.read(&mut buf);
