@@ -4,12 +4,7 @@ use std::io::prelude::*;
 use std::net::TcpStream;
 
 fn main() {
-    let _byte_string = b"123456789";
-    // let crc = checksum::crc_calculate(byte_string, byte_string.len() as u16); // without casting it is 'usize'
-    // expected `u8`, found `&[u8; 9]`
-    // so when i use the 'b' in front of the string, it gets casted to a bytearray
-    // println!("0x{:04X}", crc);
-    // i like the rust compiler, it behaves pretty good, errors are very informative as well
+    // rust is nice:)
     println!("Starting the program...");
     let mut stream = TcpStream::connect("127.0.0.1:5760").expect("Could not create socket");
     println!("Socket is open on 127.0.0.1:5760");
@@ -19,6 +14,13 @@ fn main() {
         let read_bytes = stream.read(&mut buf);
 
         println!("Received {read_bytes:?} bytes from TcpSocket!!"); // :? is for pretty-printing :)
-        println!("Buffer contents: {buf:?}");
+        //println!("Buffer contents: {buf:?}");
+        is_mavlink(&buf);
     }
+}
+
+fn is_mavlink(msg: &[u8]) -> bool {
+    // read the header of the received message to check if it's a mavlink message
+    println!("The first byte in the msg is: {msg[0]}");
+    false
 }
