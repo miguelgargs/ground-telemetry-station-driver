@@ -10,8 +10,8 @@ fn main() {
     // println!("0x{:04X}", crc);
     // i like the rust compiler, it behaves pretty good, errors are very informative as well
     println!("Starting the program...");
-    let socket = UdpSocket::bind("127.0.0.1:50051").expect("Could not create socket");
-    println!("Socket is open on 127.0.0.1:50051");
+    let socket = UdpSocket::bind("127.0.0.1:5760").expect("Could not create socket");
+    println!("Socket is open on 127.0.0.1:5760");
     let mut buf = [0; 560]; // buffer that fits two mavlink messages (max length is 280B)
     loop {
         println!("Waiting for data...");
