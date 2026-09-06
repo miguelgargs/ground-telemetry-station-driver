@@ -17,7 +17,9 @@ fn main() {
     let mut stream = TcpStream::connect(&endpoint).expect("Could not create socket");
     println!("Socket is open on {endpoint}");
     let mut buf: [u8; 560] = [0; 560]; // buffer that fits two mavlink messages (max length is 280B)
-    loop {
+    loop { // btw it is obvious but just in case: this is NOT efficient. we are holding the thread
+           // until we get data. this is bad for the CPU. should use tokio here to avoid
+           // implementing our own logic.
         println!("Waiting for data...");
         let read_bytes = stream.read(&mut buf); // buffer is overwritten every time a new message arrives
 
